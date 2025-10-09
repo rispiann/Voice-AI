@@ -4,21 +4,17 @@ from dotenv import load_dotenv
 import os
 import importlib
 
-# 🧩 Load environment variables (.env)
 load_dotenv()
 
-# 🧠 Import Friday AI (pastikan fr.py ada di folder yang sama)
 fr = importlib.import_module("fr")
 
 app = Flask(__name__)
 CORS(app)
 
-# 🚀 Route tes untuk memastikan server hidup
 @app.route('/')
 def home():
     return jsonify({"message": "Friday API is running!"})
 
-# 💬 Route utama: menerima chat dari frontend dan balas pakai Friday AI
 @app.route('/chat', methods=['POST'])
 def chat():
     try:
@@ -28,7 +24,6 @@ def chat():
         if not user_msg:
             return jsonify({'reply': 'Pesan kosong, coba ketik sesuatu!'}), 400
 
-        # 🔮 Panggil fungsi dari fr.py (ganti sesuai struktur Friday kamu)
         reply = fr.friday_response(user_msg)
 
         return jsonify({'reply': reply})
